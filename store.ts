@@ -8,7 +8,11 @@ const storageModule = {
 
 const creator = (set: any) => ({
   token: "",
+  user: {
+    name: "",
+  },
   setToken: (newToken: string) => set(() => ({ token: newToken })),
+  setUser: (newUser: any) => set(() => ({ user: newUser })),
   logout: () => {
     set(() => ({
       token: "",

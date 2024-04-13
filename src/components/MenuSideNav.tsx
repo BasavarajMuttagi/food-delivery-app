@@ -6,7 +6,7 @@ function MenuSideNav() {
     <ul
       className={twMerge(
         "no-scrollbar text-xs font-medium text-slate-500  shrink-0 flex items-baseline space-x-4 py-2 px-1 overflow-x-scroll sm:justify-center",
-        location.pathname === "/" ? "" : "hidden"
+        location.pathname === "/menu" ? "" : "hidden"
       )}
     >
       <a href="#APPETIZERS" className="shrink-0">

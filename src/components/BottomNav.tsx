@@ -6,7 +6,7 @@ function BottomNav() {
     <nav className="fixed bottom-0 w-full bg-white drop-shadow border sm:max-w-2xl sm:w-full sm:rounded sm:bottom-4 sm:m-auto sm:inset-0 sm:inset-y-[90%] sm:h-fit">
       <ul className="flex justify-between items-center">
         <NavLink
-          to={"/"}
+          to={"/menu"}
           className="flex flex-col items-center h-full w-full border-white border-t-2  p-2"
           style={({ isActive }) =>
             isActive
