@@ -9,30 +9,28 @@ function MenuSideNav() {
         location.pathname === "/" ? "" : "hidden"
       )}
     >
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#PERI PERI CHICKEN">{`PERI PERI CHICKEN`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#VALUE SNACKERS">{`VALUE SNACKERS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#CHICKEN BUCKETS">{`CHICKEN BUCKETS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#BIRYANI BUCKETS">{`BIRYANI BUCKETS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#BOX MEALS">{`BOX MEALS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#BURGERS">{`BURGERS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#SNACKS">{`SNACKS`}</a>
-      </li>
-      <li className="shrink-0 border p-2 rounded bg-white">
-        <a href="#BEVERAGES">{`BEVERAGES`}</a>
-      </li>
+      <a href="#APPETIZERS" className="shrink-0">
+        {" "}
+        <li className="border p-2 rounded bg-white">{`APPETIZERS`}</li>
+      </a>
+      <a className="shrink-0" href="#MAIN COURSES">
+        <li className="border p-2 rounded bg-white">{`MAIN COURSES`}</li>
+      </a>
+      <a className="shrink-0" href="#BREADS">
+        <li className="border p-2 rounded bg-white">{`BREADS`}</li>
+      </a>
+      <a className="shrink-0" href="#RICE">
+        <li className="border p-2 rounded bg-white">{`RICE`}</li>
+      </a>
+      <a className="shrink-0" href="#ACCOMPANIMENTS">
+        <li className="border p-2 rounded bg-white">{`ACCOMPANIMENTS`}</li>
+      </a>
+      <a className="shrink-0" href="#DESSERTS">
+        <li className="border p-2 rounded bg-white">{`DESSERTS`}</li>
+      </a>
+      <a className="shrink-0" href="#BEVERAGES">
+        <li className="border p-2 rounded bg-white">{`BEVERAGES`}</li>
+      </a>
     </ul>
   );
 }

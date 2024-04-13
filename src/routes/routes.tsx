@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MenuLayout from "../layouts/MenuLayout";
 import PublicRoutes from "./PublicRoutes";
 import AboutLayout from "../layouts/AboutLayout";
+import PaymentLayout from "../layouts/PaymentLayout";
+import CartLayout from "../layouts/CartLayout";
 
 const routes = createBrowserRouter([
   {
@@ -17,11 +19,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/pay",
-        element: <MenuLayout />,
+        element: <PaymentLayout />,
       },
       {
         path: "/cart",
-        element: <MenuLayout />,
+        element: <CartLayout />,
       },
       {
         path: "/signin",

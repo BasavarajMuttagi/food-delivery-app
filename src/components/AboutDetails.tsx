@@ -27,6 +27,7 @@ function AboutDetails() {
         <h1 className="text-xl font-semibold text-slate-700">Whatsapp</h1>
         <p className="text-sm text-slate-500">918762582739</p>
       </div>
+      <div className="border-b-2 w-full" />
       <div>
         <h1 className="text-xl font-semibold text-slate-700">Services</h1>
         <p className="text-sm text-slate-500">Dine-in, Takeaway, Delivery</p>
@@ -37,6 +38,7 @@ function AboutDetails() {
           South Indian Vegetarian, North Indian Vegetarian
         </p>
       </div>
+      <div className="border-b-2 w-full" />
       <div className="flex justify-between items-center">
         <FacebookLogo size={32} weight="fill" />
         <TwitterLogo size={32} weight="fill" />

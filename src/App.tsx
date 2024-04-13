@@ -16,7 +16,7 @@ function App() {
         }}
       />
       <RouterProvider router={routes} />
-      {/* <ReactQueryDevtools /> */}
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

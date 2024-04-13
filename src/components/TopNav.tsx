@@ -18,6 +18,9 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
         />
       </div>
       <ul className="h-full flex flex-col space-y-14 sm:space-y-0 sm:flex-row sm:justify-between sm:items-baseline sm:space-x-7">
+        <li className=" hidden sm:flex items-center space-x-3">
+          <div className="text-3xl  text-red-500 font-bold">Wingstop</div>
+        </li>
         <li className="flex items-center space-x-3">
           <SquaresFour size={24} weight="fill" className="text-purple-400" />
           <span className="text-slate-600">Menu</span>
