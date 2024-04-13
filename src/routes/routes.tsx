@@ -6,6 +6,7 @@ import PaymentLayout from "../layouts/PaymentLayout";
 import CartLayout from "../layouts/CartLayout";
 import Home from "../components/Home";
 import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
 
 const routes = createBrowserRouter([
   {
@@ -32,8 +33,8 @@ const routes = createBrowserRouter([
         element: <CartLayout />,
       },
       {
-        path: "/signin",
-        element: <MenuLayout />,
+        path: "/signup",
+        element: <SignUpForm />,
       },
       {
         path: "/login",

@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
 
 import { useState } from "react";
 
@@ -11,21 +10,13 @@ import { useNavigate } from "react-router-dom";
 import useFoodStore from "../../store";
 import apiClient from "../axios/apiClient";
 import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
+import { userLoginSchema, userLoginType } from "../zod/schemas";
 
 function LoginForm() {
   const { setToken, setUser } = useFoodStore();
   const navigate = useNavigate();
   const [isSpin, setIsSpin] = useState(false);
 
-  const userLoginSchema = z.object({
-    email: z.string().email(),
-    password: z
-      .string()
-      .min(8, { message: "password cannot be less than 8 digits" })
-      .max(10, { message: "password cannot be more than 10 digits" }),
-  });
-
-  type userLoginType = z.infer<typeof userLoginSchema>;
   const {
     register,
     handleSubmit,
