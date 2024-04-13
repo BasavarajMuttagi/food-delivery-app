@@ -11,8 +11,11 @@ const creator = (set: any) => ({
   user: {
     name: "",
   },
+  itemsArray: [] as Item[],
   setToken: (newToken: string) => set(() => ({ token: newToken })),
   setUser: (newUser: any) => set(() => ({ user: newUser })),
+  addItem: (newItem: Item) =>
+    set((state: any) => ({ itemsArray: [...state.itemsArray, newItem] })),
   logout: () => {
     set(() => ({
       token: "",
@@ -22,3 +25,7 @@ const creator = (set: any) => ({
 
 const useFoodStore = create(persist(creator, storageModule));
 export default useFoodStore;
+type Item = {
+  itemId: string;
+  quantity: number;
+};

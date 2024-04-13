@@ -18,7 +18,7 @@ function Menu() {
   });
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <span className="flex justify-center">Loading...</span>;
   }
 
   if (isError) {
@@ -44,6 +44,7 @@ function Menu() {
               price={eachItem.price}
               imageUrl={eachItem.imageUrl}
               diet={eachItem.diet}
+              itemId={eachItem.id}
             />
           ))}
         </div>
@@ -60,4 +61,5 @@ type MenuItemType = {
   price: number;
   diet: "VEG" | "NON_VEG";
   imageUrl: string;
+  id: string;
 };

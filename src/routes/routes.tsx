@@ -7,6 +7,8 @@ import CartLayout from "../layouts/CartLayout";
 import Home from "../components/Home";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import OrdersLayout from "../layouts/OrdersLayout";
+import DealsLayout from "../layouts/DealsLayout";
 
 const routes = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ const routes = createBrowserRouter([
       {
         path: "/login",
         element: <LoginForm />,
+      },
+      {
+        path: "/orders",
+        element: <OrdersLayout />,
+      },
+      {
+        path: "/deals",
+        element: <DealsLayout />,
       },
     ],
   },

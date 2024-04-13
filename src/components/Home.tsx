@@ -3,7 +3,7 @@ import rightside from "../assets/rightside.jpg";
 import { Link } from "react-router-dom";
 function Home() {
   return (
-    <div className="noise h-screen  grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none ">
+    <div className="p-1 noise h-screen  grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none ">
       <div className="place-content-center row-span-1 bg-white/60">
         <div className="flex flex-col items-center uppercase text-justify space-y-2 text-black">
           <div className="text-xl font-semibold sm:text-5xl">The Great</div>
@@ -28,7 +28,7 @@ function Home() {
           </button>
         </Link>
       </div>
-      <div className="row-span-1 bg-green-400">
+      <div className="row-span-1 bg-white">
         <img src={rightside} className="h-full w-full object-cover" />
       </div>
     </div>

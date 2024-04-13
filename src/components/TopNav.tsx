@@ -68,7 +68,7 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
           <span className="text-slate-600">
             {" "}
             <NavLink
-              to={"/favorite"}
+              to={"/orders"}
               style={({ isActive }) =>
                 isActive
                   ? {
@@ -77,7 +77,7 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
                   : { color: "" }
               }
             >
-              Favorite
+              Orders
             </NavLink>
           </span>
         </li>

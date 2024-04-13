@@ -1,5 +1,6 @@
 import { Circle, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
+import useFoodStore from "../../store";
 
 function MenuItemCard({
   title,
@@ -7,13 +8,16 @@ function MenuItemCard({
   price,
   imageUrl,
   diet,
+  itemId,
 }: {
   title: string;
   description: string;
   price: number;
   imageUrl: string;
   diet: "VEG" | "NON_VEG";
+  itemId: string;
 }) {
+  const { addItem } = useFoodStore();
   return (
     <div className="max-h-52 w-full rounded aspect-video p-3 bg-white flex justify-between items-center space-x-2 border">
       <div className="space-y-2 text-wrap">
@@ -42,9 +46,19 @@ function MenuItemCard({
           src={imageUrl}
           className="bg-red-100 rounded aspect-square w-32 sm:aspect-video sm:max-h-40 sm:max-w-56 sm:w-full sm:h-full"
         />
-        <button className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300">
-          Add
-        </button>
+        {false ? (
+          <button className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300">
+            Add
+          </button>
+        ) : (
+          <div className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300 flex justify-between">
+            <button>-</button>
+            <span>{2}</span>
+            <button onClick={() => addItem({ itemId: itemId, quantity: 1 })}>
+              +
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
