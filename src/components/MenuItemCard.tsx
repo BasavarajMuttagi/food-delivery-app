@@ -1,6 +1,7 @@
-import { Circle, Square } from "@phosphor-icons/react";
+import { Circle, Minus, Plus, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
-import useFoodStore from "../../store";
+import useFoodStore, { Item } from "../../store";
+import { useLocation } from "react-router-dom";
 
 function MenuItemCard({
   title,
@@ -17,7 +18,9 @@ function MenuItemCard({
   diet: "VEG" | "NON_VEG";
   itemId: string;
 }) {
-  const { addItem } = useFoodStore();
+  const { pathname } = useLocation();
+  const { addItem, removeItem, itemsArray } = useFoodStore();
+
   return (
     <div className="max-h-52 w-full rounded aspect-video p-3 bg-white flex justify-between items-center space-x-2 border">
       <div className="space-y-2 text-wrap">
@@ -39,23 +42,68 @@ function MenuItemCard({
         </div>
         <div className="text-xl font-semibold text-slate-800">{title}</div>
         <div className="text-xs font-medium text-slate-700">{description}</div>
-        <div className="text-lg font-semibold text-slate-800">₹ {price}</div>
+        {pathname !== "/cart" && (
+          <div className="text-lg font-semibold text-slate-800">₹ {price}</div>
+        )}
+        {pathname == "/cart" && (
+          <div className="text-sm font-semibold text-slate-600">
+            {getItemQuantity(itemsArray, itemId)} x ₹ {price}
+          </div>
+        )}
+        {pathname == "/cart" && (
+          <div className="text-sm font-semibold text-slate-800">
+            sub total : ₹{" "}
+            {(getItemQuantity(itemsArray, itemId)! * price).toFixed(2)}
+          </div>
+        )}
       </div>
       <div className="space-y-2 shrink-0 ">
         <img
           src={imageUrl}
           className="bg-red-100 rounded aspect-square w-32 sm:aspect-video sm:max-h-40 sm:max-w-56 sm:w-full sm:h-full"
         />
-        {false ? (
+        {!isItemInArray(itemsArray, itemId) ? (
           <button className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300">
-            Add
+            <span
+              onClick={() => {
+                addItem({
+                  itemId,
+                  description,
+                  diet,
+                  imageUrl,
+                  price,
+                  quantity: 1,
+                  title,
+                });
+              }}
+            >
+              Add
+            </span>
           </button>
         ) : (
-          <div className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300 flex justify-between">
-            <button>-</button>
-            <span>{2}</span>
-            <button onClick={() => addItem({ itemId: itemId, quantity: 1 })}>
-              +
+          <div className="drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500 w-full border border-slate-300 flex justify-between sm:px-5">
+            <button
+              onClick={() => {
+                removeItem(itemId);
+              }}
+            >
+              <Minus size={20} weight="bold" />
+            </button>
+            <span>{getItemQuantity(itemsArray, itemId)}</span>
+            <button
+              onClick={() => {
+                addItem({
+                  itemId,
+                  description,
+                  diet,
+                  imageUrl,
+                  price,
+                  quantity: 1,
+                  title,
+                });
+              }}
+            >
+              <Plus size={20} weight="bold" />
             </button>
           </div>
         )}
@@ -65,3 +113,17 @@ function MenuItemCard({
 }
 
 export default MenuItemCard;
+
+export const isItemInArray = (data: Item[], newItemId: string) => {
+  const result = data.filter((eachItem) => eachItem.itemId == newItemId);
+  return result.length == 1;
+};
+
+export const getItemQuantity = (data: Item[], newItemId: string) => {
+  const result = data.filter((eachItem) => eachItem.itemId == newItemId);
+  if (result.length == 0) {
+    return;
+  }
+
+  return result[0].quantity;
+};

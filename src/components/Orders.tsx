@@ -18,7 +18,11 @@ function Orders() {
   });
 
   if (isLoading) {
-    return <span className="w-full flex justify-center items-center">Loading...</span>;
+    return (
+      <span className="w-full flex justify-center items-center">
+        Loading...
+      </span>
+    );
   }
 
   if (isError) {
@@ -30,7 +34,7 @@ function Orders() {
         Orders : {Orders?.data.length}
       </div>
       {Orders?.data.map((eachOrder: Order) => {
-        return <OrderCard order={eachOrder} />;
+        return <OrderCard order={eachOrder} key={eachOrder.id} />;
       })}
     </div>
   );

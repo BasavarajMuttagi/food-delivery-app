@@ -67,7 +67,7 @@ function SignUpForm() {
                 </NavLink>
               </div>
               <div className="text-xs font-medium text-slate-800/80 mt-5  italic">
-                Experience India on a Plate: Where Flavor Meets Tradition
+                Experience India on a Plate: Where Flavour Meets Tradition
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ function OrderCard({ order }: { order: Order }) {
       <div className="border-b"></div>
       <div className="space-y-2">
         {order.OrderItem.map((eachItem) => (
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1" key={eachItem.id}>
             <div className="relative scale-75">
               <Square
                 size={30}

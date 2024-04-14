@@ -12,10 +12,17 @@ const creator = (set: any) => ({
     name: "",
   },
   itemsArray: [] as Item[],
+
   setToken: (newToken: string) => set(() => ({ token: newToken })),
   setUser: (newUser: any) => set(() => ({ user: newUser })),
   addItem: (newItem: Item) =>
-    set((state: any) => ({ itemsArray: [...state.itemsArray, newItem] })),
+    set((state: any) => ({
+      itemsArray: filterAndIncrement(state.itemsArray, newItem),
+    })),
+  removeItem: (newItemId: string) =>
+    set((state: any) => ({
+      itemsArray: filterAndDecrement(state.itemsArray, newItemId),
+    })),
   logout: () => {
     set(() => ({
       token: "",
@@ -25,7 +32,55 @@ const creator = (set: any) => ({
 
 const useFoodStore = create(persist(creator, storageModule));
 export default useFoodStore;
-type Item = {
+export type Item = {
   itemId: string;
   quantity: number;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  diet: "VEG" | "NON_VEG";
+};
+
+const filterAndIncrement = (data: Item[], newItem: Item) => {
+  if (data.length == 0) {
+    return [{ ...newItem }];
+  }
+  const currentItem = data.filter(
+    (eachItem) => eachItem.itemId == newItem.itemId
+  );
+  if (currentItem.length == 0) {
+    return [...data, { ...newItem }];
+  }
+  const filteredData = data.filter(
+    (eachItem) => eachItem.itemId !== newItem.itemId
+  );
+  return [
+    ...filteredData,
+    { ...newItem, quantity: currentItem[0].quantity + 1 },
+  ];
+};
+
+const filterAndDecrement = (data: Item[], newItemId: string) => {
+  console.log(data,newItemId)
+  if (data.length == 0) {
+    return data;
+  }
+  const currentItem = data.filter((eachItem) => eachItem.itemId == newItemId);
+  if (currentItem.length == 0) {
+    return data;
+  }
+
+  const filteredData = data.filter((eachItem) => eachItem.itemId !== newItemId);
+
+  console.log(currentItem[0])
+  if (currentItem[0].quantity == 1 || currentItem[0].quantity == 0) {
+    return filteredData;
+  }
+
+
+  return [
+    ...filteredData,
+    { ...currentItem[0], quantity: currentItem[0].quantity - 1 },
+  ];
 };

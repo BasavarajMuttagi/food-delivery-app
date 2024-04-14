@@ -19,7 +19,7 @@ function Home() {
           </div>
         </div>
         <div className="text-lg font-medium text-slate-800/80 mt-5 text-center sm:text-xl">
-          Experience India on a Plate: Where Flavor Meets Tradition
+          Experience India on a Plate: Where Flavour Meets Tradition
         </div>
 
         <Link to={"/menu"} className="flex justify-center items-center mt-10">

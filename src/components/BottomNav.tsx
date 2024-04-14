@@ -1,7 +1,22 @@
 import { Basket, ChefHat, Notebook, Wallet } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
+import useFoodStore, { Item } from "../../store";
+import Badge from "./Badge";
 
 function BottomNav() {
+  const { itemsArray } = useFoodStore();
+  const getTotalNumberOfItems = (data: Item[]) => {
+    if (data.length == 0) {
+      return 0;
+    }
+    let counter = 0;
+    data.forEach((eachItem) => {
+      counter = counter + eachItem.quantity;
+    });
+
+    return counter;
+  };
+
   return (
     <nav className="fixed bottom-0 w-full bg-white drop-shadow border sm:max-w-2xl sm:w-full sm:rounded sm:bottom-4 sm:m-auto sm:inset-0 sm:inset-y-[90%] sm:h-fit">
       <ul className="flex justify-between items-center">
@@ -52,7 +67,7 @@ function BottomNav() {
         </NavLink>
         <NavLink
           to={"/cart"}
-          className="flex flex-col items-center h-full w-full border-white border-t-2 p-2"
+          className="flex flex-col items-center h-full w-full border-white border-t-2 p-2 relative"
           style={({ isActive }) =>
             isActive
               ? {
@@ -63,7 +78,16 @@ function BottomNav() {
           }
         >
           <Basket size={24} />
-          <span>Total</span>
+          <span>
+            Cart{" "}
+            {getTotalNumberOfItems(itemsArray) > 0 ? (
+              <div className="absolute top-0">
+                <Badge count={getTotalNumberOfItems(itemsArray)} />
+              </div>
+            ) : (
+              ""
+            )}
+          </span>
         </NavLink>
       </ul>
     </nav>
