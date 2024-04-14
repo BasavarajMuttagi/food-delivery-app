@@ -1,9 +1,13 @@
 import { ArrowRight } from "@phosphor-icons/react";
 import rightside from "../assets/rightside.jpg";
 import { Link } from "react-router-dom";
+import bgImage from "../assets/noise.webp";
 function Home() {
   return (
-    <div className="p-1 noise h-screen  grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none ">
+    <div
+      className="p-1 noise h-screen  grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
       <div className="place-content-center row-span-1 bg-white/60">
         <div className="flex flex-col items-center uppercase text-justify space-y-2 text-black">
           <div className="text-xl font-semibold sm:text-5xl">The Great</div>
@@ -12,7 +16,9 @@ function Home() {
           </div>
           <div className="text-xl font-semibold  tracking-wider sm:text-5xl">
             Kitchen{" "}
-            <span className="text-sm font-normal lowercase italic sm:text-3xl">by</span>{" "}
+            <span className="text-sm font-normal lowercase italic sm:text-3xl">
+              by
+            </span>{" "}
             <span className="italic font-courgette capitalize text-xl text-yellow-400 sm:text-5xl">
               Rasoi
             </span>
