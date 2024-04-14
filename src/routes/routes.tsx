@@ -9,10 +9,24 @@ import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import OrdersLayout from "../layouts/OrdersLayout";
 import DealsLayout from "../layouts/DealsLayout";
+import PrivateRoutes from "./PrivateRoutes";
 
 const routes = createBrowserRouter([
   {
     element: <PublicRoutes />,
+    children: [
+      {
+        path: "/signup",
+        element: <SignUpForm />,
+      },
+      {
+        path: "/login",
+        element: <LoginForm />,
+      },
+    ],
+  },
+  {
+    element: <PrivateRoutes />,
     children: [
       {
         path: "/",
@@ -33,14 +47,6 @@ const routes = createBrowserRouter([
       {
         path: "/cart",
         element: <CartLayout />,
-      },
-      {
-        path: "/signup",
-        element: <SignUpForm />,
-      },
-      {
-        path: "/login",
-        element: <LoginForm />,
       },
       {
         path: "/orders",

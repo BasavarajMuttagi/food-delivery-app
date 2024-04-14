@@ -28,6 +28,11 @@ const creator = (set: any) => ({
   logout: () => {
     set(() => ({
       token: "",
+      itemsArray: [],
+      coupon: "",
+      user: {
+        name: "",
+      },
     }));
   },
 

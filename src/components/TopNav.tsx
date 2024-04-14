@@ -11,7 +11,7 @@ import { Link, NavLink } from "react-router-dom";
 import Badge from "./Badge";
 import useFoodStore, { Item } from "../../store";
 function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
-  const { itemsArray } = useFoodStore();
+  const { itemsArray, logout } = useFoodStore();
   const getTotalNumberOfItems = (data: Item[]) => {
     if (data.length == 0) {
       return 0;
@@ -125,21 +125,12 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
           </span>
         </li>
         <li className="flex items-center space-x-3">
-          <UserCircle size={24} weight="fill" />
-          <span className="text-slate-600">
-            <NavLink
-              to={"/signin"}
-              style={({ isActive }) =>
-                isActive
-                  ? {
-                      color: "#ef4444",
-                    }
-                  : { color: "" }
-              }
-            >
-              Sign In
-            </NavLink>
-          </span>
+          <UserCircle
+            size={35}
+            weight="fill"
+            className="cursor-pointer"
+            onClick={() => logout()}
+          />
         </li>
       </ul>
     </nav>

@@ -15,7 +15,8 @@ import { AxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
 
 function OrderSummary() {
-  const { itemsArray, coupon, setCoupon, resetCoupon } = useFoodStore();
+  const { itemsArray, coupon, setCoupon, resetCoupon, resetItemsArray } =
+    useFoodStore();
   const [isSpin, setIsSpin] = useState(false);
   const [couponCode, setCouponCode] = useState(coupon);
   const navigate = useNavigate();
@@ -52,6 +53,8 @@ function OrderSummary() {
       .post("/order/create", { items: filterItems(itemsArray), couponCode })
       .then(() => {
         enqueueSnackbar("Order Created!", { variant: "success" });
+        resetItemsArray();
+        resetCoupon();
         navigate("/orders");
       })
       .catch((error: AxiosError) => {
