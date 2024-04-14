@@ -8,11 +8,13 @@ const storageModule = {
 
 const creator = (set: any) => ({
   token: "",
+  coupon: "",
   user: {
     name: "",
   },
   itemsArray: [] as Item[],
-
+  setCoupon: (newCoupon: string) => set(() => ({ coupon: newCoupon })),
+  resetCoupon: () => set(() => ({ coupon: "" })),
   setToken: (newToken: string) => set(() => ({ token: newToken })),
   setUser: (newUser: any) => set(() => ({ user: newUser })),
   addItem: (newItem: Item) =>
@@ -28,6 +30,8 @@ const creator = (set: any) => ({
       token: "",
     }));
   },
+
+  resetItemsArray: () => set(() => ({ itemsArray: [] })),
 });
 
 const useFoodStore = create(persist(creator, storageModule));
@@ -62,7 +66,7 @@ const filterAndIncrement = (data: Item[], newItem: Item) => {
 };
 
 const filterAndDecrement = (data: Item[], newItemId: string) => {
-  console.log(data,newItemId)
+  console.log(data, newItemId);
   if (data.length == 0) {
     return data;
   }
@@ -73,11 +77,10 @@ const filterAndDecrement = (data: Item[], newItemId: string) => {
 
   const filteredData = data.filter((eachItem) => eachItem.itemId !== newItemId);
 
-  console.log(currentItem[0])
+  console.log(currentItem[0]);
   if (currentItem[0].quantity == 1 || currentItem[0].quantity == 0) {
     return filteredData;
   }
-
 
   return [
     ...filteredData,
