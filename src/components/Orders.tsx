@@ -64,7 +64,10 @@ type OrderItem = {
 export type Order = {
   id: string;
   userId: string;
-  totalAmount: number;
+  total: number;
+  subtotal: number;
+  tax: number;
+  tax_rate: number;
   createdAt: string;
   updatedAt: string;
   _count: {

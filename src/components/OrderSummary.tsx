@@ -1,20 +1,54 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../axios/apiClient";
-import useFoodStore from "../../store";
+import useFoodStore, { Item } from "../../store";
 import OrderSummarySK from "../Skeletons/OrderSummarySK";
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { AxiosError } from "axios";
+import { enqueueSnackbar } from "notistack";
 
 function OrderSummary() {
+  const [isSpin, setIsSpin] = useState(false);
+
   const navigate = useNavigate();
   const { itemsArray } = useFoodStore();
+
   const getAllOrders = async () => {
     const result = await apiClient().post("/order/getquote", {
       items: itemsArray,
     });
     return result.data;
   };
+
+  const createOrder = async () => {
+    const filterItems = (itemsArray: Item[]) => {
+      return itemsArray.map((item) => ({
+        itemId: item.itemId,
+        quantity: item.quantity,
+        price: item.price,
+      }));
+    };
+
+    setIsSpin(true);
+    await apiClient()
+      .post("/order/create", { items: filterItems(itemsArray) })
+      .then(() => {
+        enqueueSnackbar("Order Created!", { variant: "success" });
+        navigate("/orders");
+      })
+      .catch((error: AxiosError) => {
+        const data = error.response?.data as any;
+        enqueueSnackbar(data?.message || "Something Went Wrong!", {
+          variant: "error",
+        });
+      })
+      .finally(() => {
+        setIsSpin(false);
+      });
+  };
+
   const {
     isLoading,
     isError,
@@ -61,9 +95,13 @@ function OrderSummary() {
           className={twMerge(
             "w-full p-2 rounded-sm  outline outline-1 outline-slate-300   bg-green-600 text-white text-xl font-bold sm:max-w-[310px]"
           )}
-          onClick={() => navigate("/pay")}
+          onClick={() => createOrder()}
         >
-          Order Now <ArrowRight size={32} className="inline ml-2" />
+          Order Now
+          {isSpin && (
+            <CircleNotch size={32} className="inline ml-2 animate-spin" />
+          )}
+          {!isSpin && <ArrowRight size={32} className="inline ml-2" />}
         </button>
       </div>
     </div>

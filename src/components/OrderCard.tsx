@@ -53,7 +53,7 @@ function OrderCard({ order }: { order: Order }) {
       <div className="border-b"></div>
       <div className="flex justify-between items-center">
         <span className="text-sm font-semibold">
-          ₹ {order.totalAmount.toFixed(2)}
+          ₹ {order.total.toFixed(2)}
         </span>
         <button className="text-white bg-red-500 rounded p-2 text-sm font-semibold">
           Reorder
