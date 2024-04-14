@@ -46,14 +46,13 @@ function MenuItemCard({
           <div className="text-lg font-semibold text-slate-800">₹ {price}</div>
         )}
         {pathname == "/cart" && (
-          <div className="text-sm font-semibold text-slate-600">
+          <div className="text-xs font-semibold text-slate-600">
             {getItemQuantity(itemsArray, itemId)} x ₹ {price}
           </div>
         )}
         {pathname == "/cart" && (
           <div className="text-sm font-semibold text-slate-800">
-            sub total : ₹{" "}
-            {(getItemQuantity(itemsArray, itemId)! * price).toFixed(2)}
+            ₹ {(getItemQuantity(itemsArray, itemId)! * price).toFixed(2)}
           </div>
         )}
       </div>

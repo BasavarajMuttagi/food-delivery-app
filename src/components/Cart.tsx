@@ -8,22 +8,23 @@ function Cart() {
     return a.title.localeCompare(b.title);
   });
   return (
-    <div className="space-y-4 p-2 w-full sm:w-[60%]">
-      {sortedItems.map((eachItem) => (
-        <MenuItemCard
-          key={eachItem.itemId}
-          description={eachItem.description}
-          diet={eachItem.diet}
-          imageUrl={eachItem.imageUrl}
-          itemId={eachItem.itemId}
-          price={eachItem.price}
-          title={eachItem.title}
-        />
-      ))}
+    <div className="space-y-20 pb-36 p-2 w-full sm:w-[60%]">
+      <div className="space-y-4">
+        {sortedItems.map((eachItem) => (
+          <MenuItemCard
+            key={eachItem.itemId}
+            description={eachItem.description}
+            diet={eachItem.diet}
+            imageUrl={eachItem.imageUrl}
+            itemId={eachItem.itemId}
+            price={eachItem.price}
+            title={eachItem.title}
+          />
+        ))}
+      </div>
 
       <div className="border-b"></div>
       <OrderSummary />
-      <div className="border-b"></div>
     </div>
   );
 }

@@ -77,17 +77,17 @@ function BottomNav() {
               : { color: "" }
           }
         >
-          <Basket size={24} />
-          <span>
-            Cart{" "}
+          <div className="relative">
+            <Basket size={24} />
             {getTotalNumberOfItems(itemsArray) > 0 ? (
-              <div className="absolute top-0">
+              <div className="absolute -top-2 left-5">
                 <Badge count={getTotalNumberOfItems(itemsArray)} />
               </div>
             ) : (
               ""
             )}
-          </span>
+          </div>
+          <span>Cart </span>
         </NavLink>
       </ul>
     </nav>

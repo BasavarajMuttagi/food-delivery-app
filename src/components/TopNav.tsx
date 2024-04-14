@@ -8,7 +8,22 @@ import {
 } from "@phosphor-icons/react";
 import { RefObject } from "react";
 import { Link, NavLink } from "react-router-dom";
+import Badge from "./Badge";
+import useFoodStore, { Item } from "../../store";
 function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
+  const { itemsArray } = useFoodStore();
+  const getTotalNumberOfItems = (data: Item[]) => {
+    if (data.length == 0) {
+      return 0;
+    }
+    let counter = 0;
+    data.forEach((eachItem) => {
+      counter = counter + eachItem.quantity;
+    });
+
+    return counter;
+  };
+
   return (
     <nav className="p-10  h-screen text-xl font-bold flex flex-col space-y-5 bg-white w-full sm:space-y-0 sm:flex-row sm:justify-between sm:items-center sm:p-4 sm:text-base sm:h-fit sm:border-b">
       <div className="w-full flex justify-end sm:hidden">
@@ -84,7 +99,16 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
       </ul>
       <ul className="h-full flex flex-col space-y-14 sm:flex-row sm:space-y-0 sm:justify-between sm:items-baseline sm:space-x-7">
         <li className="flex items-center space-x-3">
-          <Basket size={24} weight="fill" className="text-green-400" />
+          <div className="relative">
+            <Basket size={24} weight="fill" className="text-green-400" />
+            {getTotalNumberOfItems(itemsArray) > 0 ? (
+              <div className="absolute -top-5 left-3">
+                <Badge count={getTotalNumberOfItems(itemsArray)} />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <span className="text-slate-600">
             <NavLink
               to={"/cart"}
