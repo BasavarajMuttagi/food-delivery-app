@@ -1,7 +1,8 @@
 import { Basket, ChefHat, Notebook, Wallet } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
-import useFoodStore, { Item } from "../../store";
+import useFoodStore from "../../store";
 import Badge from "./Badge";
+import { Item } from "../common/types";
 
 function BottomNav() {
   const { itemsArray } = useFoodStore();

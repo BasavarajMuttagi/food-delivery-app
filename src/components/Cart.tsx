@@ -5,7 +5,7 @@ import MenuItemCard from "./MenuItemCard";
 function Cart() {
   const { itemsArray } = useFoodStore();
   const sortedItems = itemsArray.slice().sort((a, b) => {
-    return a.title.localeCompare(b.title);
+    return a.name.localeCompare(b.name);
   });
   return (
     <div className="space-y-20 pb-36 p-2 w-full sm:w-[60%]">
@@ -14,11 +14,11 @@ function Cart() {
           <MenuItemCard
             key={eachItem.itemId}
             description={eachItem.description}
-            diet={eachItem.diet}
+            dietType={eachItem.dietType}
             imageUrl={eachItem.imageUrl}
             itemId={eachItem.itemId}
             price={eachItem.price}
-            title={eachItem.title}
+            name={eachItem.name}
           />
         ))}
       </div>

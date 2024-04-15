@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import MenuItemCard from "./MenuItemCard";
 import apiClient from "../axios/apiClient";
+import { Item } from "../common/types";
 
 function Menu() {
   const getMenu = async () => {
@@ -36,15 +37,15 @@ function Menu() {
           <div className="font-bold text-slate-700 text-xl">
             {eachCategory == "MAIN_COURSES" ? "MAIN COURSES" : eachCategory}
           </div>
-          {menu?.data.result[eachCategory].map((eachItem: MenuItemType) => (
+          {menu?.data.result[eachCategory].map((eachItem: Item) => (
             <MenuItemCard
               key={eachItem.name}
-              title={eachItem.name}
+              name={eachItem.name}
               description={eachItem.description}
               price={eachItem.price}
               imageUrl={eachItem.imageUrl}
-              diet={eachItem.diet}
-              itemId={eachItem.id}
+              dietType={eachItem.dietType}
+              itemId={eachItem.itemId}
             />
           ))}
         </div>
@@ -54,12 +55,3 @@ function Menu() {
 }
 
 export default Menu;
-
-type MenuItemType = {
-  name: string;
-  description: string;
-  price: number;
-  diet: "VEG" | "NON_VEG";
-  imageUrl: string;
-  id: string;
-};

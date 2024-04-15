@@ -1,23 +1,18 @@
 import { Circle, Minus, Plus, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
-import useFoodStore, { Item } from "../../store";
+import useFoodStore from "../../store";
 import { useLocation } from "react-router-dom";
+import { Item } from "../common/types";
+import { getItemQuantity, isItemInArray } from "../common/helper";
 
 function MenuItemCard({
-  title,
+  name,
   description,
   price,
   imageUrl,
-  diet,
+  dietType,
   itemId,
-}: {
-  title: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  diet: "VEG" | "NON_VEG";
-  itemId: string;
-}) {
+}: Omit<Item, "quantity" | "category">) {
   const { pathname } = useLocation();
   const { addItem, removeItem, itemsArray } = useFoodStore();
 
@@ -28,7 +23,7 @@ function MenuItemCard({
           <Square
             size={30}
             className={twMerge(
-              diet == "VEG" ? "text-green-400" : "text-red-400"
+              dietType == "VEG" ? "text-green-400" : "text-red-400"
             )}
           />
           <Circle
@@ -36,11 +31,11 @@ function MenuItemCard({
             weight="fill"
             className={twMerge(
               "absolute inset-[7px]",
-              diet == "VEG" ? "text-green-400" : "text-red-400"
+              dietType == "VEG" ? "text-green-400" : "text-red-400"
             )}
           />
         </div>
-        <div className="text-xl font-semibold text-slate-800">{title}</div>
+        <div className="text-xl font-semibold text-slate-800">{name}</div>
         <div className="text-xs font-medium text-slate-700">{description}</div>
         {pathname !== "/cart" && (
           <div className="text-lg font-semibold text-slate-800">₹ {price}</div>
@@ -68,11 +63,11 @@ function MenuItemCard({
                 addItem({
                   itemId,
                   description,
-                  diet,
+                  dietType,
                   imageUrl,
                   price,
                   quantity: 1,
-                  title,
+                  name,
                 });
               }}
             >
@@ -94,11 +89,11 @@ function MenuItemCard({
                 addItem({
                   itemId,
                   description,
-                  diet,
+                  dietType,
                   imageUrl,
                   price,
                   quantity: 1,
-                  title,
+                  name,
                 });
               }}
             >
@@ -112,17 +107,3 @@ function MenuItemCard({
 }
 
 export default MenuItemCard;
-
-export const isItemInArray = (data: Item[], newItemId: string) => {
-  const result = data.filter((eachItem) => eachItem.itemId == newItemId);
-  return result.length == 1;
-};
-
-export const getItemQuantity = (data: Item[], newItemId: string) => {
-  const result = data.filter((eachItem) => eachItem.itemId == newItemId);
-  if (result.length == 0) {
-    return;
-  }
-
-  return result[0].quantity;
-};

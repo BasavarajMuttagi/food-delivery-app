@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../axios/apiClient";
-import useFoodStore, { Item } from "../../store";
+import useFoodStore from "../../store";
 import OrderSummarySK from "../Skeletons/OrderSummarySK";
 import {
   ArrowRight,
@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
+import { Item, QuoteType } from "../common/types";
 
 function OrderSummary() {
   const { itemsArray, coupon, setCoupon, resetCoupon, resetItemsArray } =
@@ -180,22 +181,3 @@ function OrderSummary() {
 }
 
 export default OrderSummary;
-
-type Discount = {
-  originalSubTotal: number;
-  subtotal: number;
-  couponCode: string;
-  saved: number;
-  error: string;
-};
-
-type QuoteType = {
-  GrandTotal: number;
-  subtotal: number;
-  tax: number;
-  taxRate: number;
-  taxType: string;
-  isDiscountApplied: boolean;
-  discount?: Discount;
-  discountError?: boolean;
-};

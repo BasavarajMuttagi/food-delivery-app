@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../axios/apiClient";
 import OrderCard from "./OrderCard";
+import { Order } from "../common/types";
 
 function Orders() {
   const getAllOrders = async () => {
@@ -42,36 +43,3 @@ function Orders() {
 
 export default Orders;
 
-type MenuItem = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  dietType: "VEG" | "NON_VEG";
-  category: string;
-  imageUrl: string;
-};
-
-type OrderItem = {
-  id: string;
-  orderId: string;
-  itemId: string;
-  quantity: number;
-  price: number;
-  menuItem: MenuItem;
-};
-
-export type Order = {
-  id: string;
-  userId: string;
-  total: number;
-  subtotal: number;
-  tax: number;
-  tax_rate: number;
-  createdAt: string;
-  updatedAt: string;
-  _count: {
-    OrderItem: number;
-  };
-  OrderItem: OrderItem[];
-};

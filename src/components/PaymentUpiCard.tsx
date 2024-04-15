@@ -1,12 +1,10 @@
-function PaymentUpiCard({
-  imageUrl,
-  brandname,
-  upiId,
-}: {
+type paymentProps = {
   imageUrl: string;
   brandname: string;
   upiId: string;
-}) {
+};
+
+function PaymentUpiCard({ imageUrl, brandname, upiId }: paymentProps) {
   return (
     <div className="border aspect-square w-30 bg-neutral-200/60 rounded flex flex-col items-center justify-center space-y-2 sm:w-48">
       <img src={imageUrl} />

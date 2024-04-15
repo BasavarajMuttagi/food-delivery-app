@@ -1,6 +1,7 @@
 import { Circle, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
-import { Order } from "./Orders";
+import { Order } from "../common/types";
+
 
 function OrderCard({ order }: { order: Order }) {
   return (

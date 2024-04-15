@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { Item } from "./src/common/types";
 
 const storageModule = {
   name: "food-app-storage",
@@ -41,15 +42,7 @@ const creator = (set: any) => ({
 
 const useFoodStore = create(persist(creator, storageModule));
 export default useFoodStore;
-export type Item = {
-  itemId: string;
-  quantity: number;
-  title: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  diet: "VEG" | "NON_VEG";
-};
+
 
 const filterAndIncrement = (data: Item[], newItem: Item) => {
   if (data.length == 0) {

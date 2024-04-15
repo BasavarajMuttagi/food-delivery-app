@@ -9,7 +9,8 @@ import {
 import { RefObject } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Badge from "./Badge";
-import useFoodStore, { Item } from "../../store";
+import useFoodStore from "../../store";
+import { Item } from "../common/types";
 function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
   const { itemsArray, logout } = useFoodStore();
   const getTotalNumberOfItems = (data: Item[]) => {
