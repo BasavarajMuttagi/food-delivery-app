@@ -1,5 +1,5 @@
 import { ArrowRight } from "@phosphor-icons/react";
-import rightside from "../assets/rightside.jpg";
+import rightside from "../assets/rightside.webp";
 import { Link } from "react-router-dom";
 import bgImage from "../assets/noise.webp";
 function Home() {

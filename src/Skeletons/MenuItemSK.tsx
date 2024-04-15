@@ -48,7 +48,7 @@ function MenuItemCard() {
       </div>
       <div className="flex flex-col space-y-2  h-full shrink w-32 sm:max-h-30 sm:max-w-56 sm:w-full sm:h-full">
         <Skeleton className="w-full rounded aspect-square  sm:aspect-video" />
-        <Skeleton className="w-full drop-shadow text-lg font-semibold rounded text-white px-2 py-1 bg-red-500  border border-slate-300"/>
+        <Skeleton className="w-full drop-shadow text-lg font-semibold rounded text-white px-2 py-1"/>
        
       </div>
     </div>

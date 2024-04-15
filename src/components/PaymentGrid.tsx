@@ -3,7 +3,7 @@ import googlepay from "../assets/googlepay.png";
 import phonepe from "../assets/phonepe.png";
 import amazonpay from "../assets/amazonpay.png";
 import paytm from "../assets/paytm.png";
-import myqr from "../assets/adobe-express-qr-code.png";
+import myqr from "../assets/adobe-express-qr-code.webp";
 
 function PaymentGrid() {
   return (

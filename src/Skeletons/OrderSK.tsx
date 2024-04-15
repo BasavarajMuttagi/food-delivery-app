@@ -15,7 +15,7 @@ function OrderSK() {
             <Skeleton className="w-56" />
           </div>
         </div>
-        <Skeleton className="w-20 text-xs font-medium text-green-500 rounded p-1 bg-green-50 border border-green-500  h-fit" />
+        <Skeleton className="w-20 text-xs font-medium  rounded p-1 bg-green-50  h-fit" />
       </div>
       <div className="border-b"></div>
       <div className="space-y-2">
@@ -48,7 +48,7 @@ function OrderSK() {
         <span className="text-sm font-semibold">
           <Skeleton className="w-28" />
         </span>
-        <Skeleton className="text-white bg-red-500 rounded p-2 text-sm font-semibold w-20" />
+        <Skeleton className="text-white  rounded p-2 text-sm font-semibold w-20" />
       </div>
     </div>
   );
