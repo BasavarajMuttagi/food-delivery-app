@@ -1,29 +1,17 @@
 import {
-  Basket,
   Heart,
   SealPercent,
+  SignOut,
   SquaresFour,
   UserCircle,
   X,
 } from "@phosphor-icons/react";
 import { RefObject } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Badge from "./Badge";
 import useFoodStore from "../../store";
-import { Item } from "../common/types";
-function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
-  const { itemsArray, logout } = useFoodStore();
-  const getTotalNumberOfItems = (data: Item[]) => {
-    if (data.length == 0) {
-      return 0;
-    }
-    let counter = 0;
-    data.forEach((eachItem) => {
-      counter = counter + eachItem.quantity;
-    });
 
-    return counter;
-  };
+function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
+  const { logout } = useFoodStore();
 
   return (
     <nav className="p-10  h-screen text-xl font-bold flex flex-col space-y-5 bg-white w-full sm:space-y-0 sm:flex-row sm:justify-between sm:items-center sm:p-4 sm:text-base sm:h-fit sm:border-b">
@@ -98,21 +86,13 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
           </span>
         </li>
       </ul>
-      <ul className="h-full flex flex-col space-y-14 sm:flex-row sm:space-y-0 sm:justify-between sm:items-baseline sm:space-x-7">
+      <ul className="h-full flex flex-col  space-y-14 sm:flex-row sm:space-y-0 sm:justify-between sm:items-baseline sm:space-x-7">
         <li className="flex items-center space-x-3">
-          <div className="relative">
-            <Basket size={24} weight="fill" className="text-green-400" />
-            {getTotalNumberOfItems(itemsArray) > 0 ? (
-              <div className="absolute -top-5 left-3">
-                <Badge count={getTotalNumberOfItems(itemsArray)} />
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+          <UserCircle size={24} weight="fill" />
           <span className="text-slate-600">
+            {" "}
             <NavLink
-              to={"/cart"}
+              to={"/about"}
               style={({ isActive }) =>
                 isActive
                   ? {
@@ -121,17 +101,13 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
                   : { color: "" }
               }
             >
-              Cart
+              About
             </NavLink>
           </span>
         </li>
-        <li className="flex items-center space-x-3">
-          <UserCircle
-            size={35}
-            weight="fill"
-            className="cursor-pointer"
-            onClick={() => logout()}
-          />
+        <li className="flex items-center space-x-3 cursor-pointer text-slate-600">
+          <SignOut size={24} />
+          <span onClick={() => logout()}>Logout</span>
         </li>
       </ul>
     </nav>

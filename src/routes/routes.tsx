@@ -10,6 +10,7 @@ import SignUpForm from "../components/SignUpForm";
 import OrdersLayout from "../layouts/OrdersLayout";
 import DealsLayout from "../layouts/DealsLayout";
 import PrivateRoutes from "./PrivateRoutes";
+import CheckOutLayout from "../layouts/CheckOutLayout";
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const routes = createBrowserRouter([
       {
         path: "/deals",
         element: <DealsLayout />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckOutLayout />,
       },
     ],
   },

@@ -3,19 +3,12 @@ import googlepay from "../assets/googlepay.png";
 import phonepe from "../assets/phonepe.png";
 import amazonpay from "../assets/amazonpay.png";
 import paytm from "../assets/paytm.png";
-import myqr from "../assets/adobe-express-qr-code.webp";
 
 function PaymentGrid() {
   return (
-    <div className="space-y-10 p-2">
-      <div className="w-full">
-        <img src={myqr} alt="myqr" className="aspect-square w-full border" />
-        <p className="text-lg font-semibold text-slate-700 text-center">
-          Scan the QR code to pay
-        </p>
-      </div>
-      <div className="border-b"></div>
-      <div className="grid grid-cols-2 grid-rows-3 place-items-center gap-7">
+    <div className="space-y-5 p-2">
+      <div className="text-lg text-slate-800 font-bold">Payment Methods</div>
+      <div className="grid grid-cols-2 grid-rows-3 place-items-center gap-7 lg:flex lg:justify-between">
         <PaymentUpiCard
           imageUrl={googlepay}
           brandname="Google Pay"

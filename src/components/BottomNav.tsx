@@ -1,4 +1,4 @@
-import { Basket, ChefHat, Notebook, Wallet } from "@phosphor-icons/react";
+import { Basket, Heart, Notebook, SealPercent } from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
 import useFoodStore from "../../store";
 import Badge from "./Badge";
@@ -36,8 +36,9 @@ function BottomNav() {
           <Notebook size={24} />
           <span>Menu</span>
         </NavLink>
+
         <NavLink
-          to={"/about"}
+          to={"/deals"}
           className="flex flex-col items-center h-full w-full border-white border-t-2 p-2"
           style={({ isActive }) =>
             isActive
@@ -48,11 +49,11 @@ function BottomNav() {
               : { color: "" }
           }
         >
-          <ChefHat size={24} />
-          <span>About</span>
+          <SealPercent size={24} />
+          <span>Deals</span>
         </NavLink>
         <NavLink
-          to={"/pay"}
+          to={"/orders"}
           className="flex flex-col items-center h-full w-full border-white border-t-2 p-2"
           style={({ isActive }) =>
             isActive
@@ -63,8 +64,9 @@ function BottomNav() {
               : { color: "" }
           }
         >
-          <Wallet size={24} />
-          <span>Pay</span>
+          <Heart size={24} />
+
+          <span>Orders</span>
         </NavLink>
         <NavLink
           to={"/cart"}

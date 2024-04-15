@@ -11,8 +11,8 @@ function Cart() {
 
   if (itemsArray.length == 0) {
     return (
-      <div className="flex flex-col justify-center items-center space-y-20 pb-36 p-2 w-full sm:w-[60%]">
-        <div className="flex space-x-4 items-center">
+      <div className="flex justify-center items-center h-screen space-y-20 pb-36 p-2 w-full sm:w-[60%]">
+        <div className="flex  space-x-4 items-center">
           <Basket
             size={40}
             weight="fill"
@@ -40,7 +40,12 @@ function Cart() {
       </div>
 
       {itemsArray.length > 0 && <div className="border-b"></div>}
-      {itemsArray.length > 0 && <OrderSummary />}
+
+      {itemsArray.length > 0 && (
+        <>
+          <OrderSummary />
+        </>
+      )}
     </div>
   );
 }
