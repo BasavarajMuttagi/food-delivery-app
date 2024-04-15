@@ -11,7 +11,7 @@ type userLoginType = z.infer<typeof userLoginSchema>;
 
 const userSignUpSchema = z
   .object({
-    fullname: z.string(),
+    fullname: z.string().min(3).max(50),
     email: z.string().email(),
     password: z
       .string()
@@ -21,7 +21,7 @@ const userSignUpSchema = z
       .string()
       .min(8, { message: "password cannot be less than 8 digits" })
       .max(10, { message: "password cannot be more than 10 digits" }),
-    phone: z.string(),
+    phone: z.string().min(10).max(13),
     city: z.string(),
     state: z.string(),
     country: z.string(),
