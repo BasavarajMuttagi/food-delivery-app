@@ -94,6 +94,7 @@ function OrderSummary() {
     queryKey: ["quote", itemsArray],
     queryFn: async () => await getQuote(),
     enabled: !!itemsArray.length,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
@@ -173,7 +174,7 @@ function OrderSummary() {
             onClick={() => {
               refetch(), setIsSpinQuote(true);
             }}
-            disabled={!(couponInput.length > 0)}
+            disabled={!(couponInput.length > 0) || isSpin}
           >
             Apply
           </button>
@@ -183,6 +184,7 @@ function OrderSummary() {
         )}
         {savedCoupon && !isSpinQuote && (
           <button
+            disabled={isSpin}
             className="text-xl font-semibold tracking-wider"
             onClick={async () => {
               await resetCoupon(),
@@ -200,9 +202,9 @@ function OrderSummary() {
         <button
           className={twMerge(
             "w-full p-2 rounded-sm  outline outline-1 outline-slate-300   bg-green-600 text-white text-xl font-bold sm:max-w-[310px]",
-            isSpin ? "brightness-75" : ""
+            isSpin||isSpinQuote ? "bg-green-600/40 cursor-not-allowed" : ""
           )}
-          disabled={isSpin}
+          disabled={isSpin || isSpinQuote}
           onClick={() => createOrder()}
         >
           Order Now
