@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import MenuLayout from "../layouts/MenuLayout";
 import PublicRoutes from "./PublicRoutes";
 import AboutLayout from "../layouts/AboutLayout";
-import PaymentLayout from "../layouts/PaymentLayout";
 import CartLayout from "../layouts/CartLayout";
 import Home from "../components/Home";
 import LoginForm from "../components/LoginForm";
@@ -11,6 +10,7 @@ import OrdersLayout from "../layouts/OrdersLayout";
 import DealsLayout from "../layouts/DealsLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import CheckOutLayout from "../layouts/CheckOutLayout";
+import OrderConfirmation from "../components/OrderConfirmation";
 
 const routes = createBrowserRouter([
   {
@@ -42,10 +42,6 @@ const routes = createBrowserRouter([
         element: <AboutLayout />,
       },
       {
-        path: "/pay",
-        element: <PaymentLayout />,
-      },
-      {
         path: "/cart",
         element: <CartLayout />,
       },
@@ -60,6 +56,10 @@ const routes = createBrowserRouter([
       {
         path: "/checkout",
         element: <CheckOutLayout />,
+      },
+      {
+        path: "/confirmation",
+        element: <OrderConfirmation />,
       },
     ],
   },
