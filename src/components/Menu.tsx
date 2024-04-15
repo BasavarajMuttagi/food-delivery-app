@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import MenuItemCard from "./MenuItemCard";
 import apiClient from "../axios/apiClient";
 import { Item } from "../common/types";
+import MenuItemSK from "../Skeletons/MenuItemSK";
 
 function Menu() {
   const getMenu = async () => {
@@ -19,7 +20,14 @@ function Menu() {
   });
 
   if (isLoading) {
-    return <span className="flex justify-center">Loading...</span>;
+    return (
+      <div className="scroll-smooth h-full no-scrollbar flex flex-col space-y-5 justify-between w-full p-2 pb-24 overflow-y-scroll sm:w-[60%]">
+        <MenuItemSK />
+        <MenuItemSK />
+        <MenuItemSK />
+        <MenuItemSK />
+      </div>
+    );
   }
 
   if (isError) {
