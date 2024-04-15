@@ -106,14 +106,11 @@ function LoginForm() {
             </button>
           </div>
           <div className="px-2">
-            <p className="font-semibold text-sm text-blue-600 hover:text-purple-800 cursor-pointer">
-              forgot password?
-            </p>
             <div className="text-center text-md font-semibold">or</div>
           </div>
           <div className="p-2 flex justify-center">
             <button
-              className="p-2 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-yellow-300 text-black text-xl font-bold"
+              className="p-1 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-yellow-300 text-black text-xl font-bold"
               onClick={() => navigate("/signup")}
             >
               Sign Up <ArrowRight size={32} className="inline ml-2" />

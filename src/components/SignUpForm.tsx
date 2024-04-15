@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
 import apiClient from "../axios/apiClient";
 import { AxiosResponse, AxiosError } from "axios";
@@ -51,7 +51,7 @@ function SignUpForm() {
   };
 
   return (
-    <div className="font-inter   md:h-screen">
+    <div className="pb-10 font-inter   md:h-screen">
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit(SubmitHandler)}
@@ -194,7 +194,7 @@ function SignUpForm() {
 
           <div className="p-2 flex justify-center">
             <button
-              className="p-2 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-black text-xl font-bold text-white"
+              className="p-1 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-yellow-300 text-xl font-bold text-black"
               type="submit"
             >
               Sign Up{" "}
@@ -203,6 +203,14 @@ function SignUpForm() {
               )}
               {!isSpin && <ArrowRight size={32} className="inline ml-2" />}
             </button>
+          </div>
+          <div className="px-2">
+            <div className="text-center text-md font-semibold">
+              Already Have An Account ?{" "}
+              <Link to="/login">
+                <span className="text-blue-500">Login</span>
+              </Link>
+            </div>
           </div>
         </form>
       </div>
