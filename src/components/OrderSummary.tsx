@@ -2,12 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import apiClient from "../axios/apiClient";
 import useFoodStore from "../../store";
 import OrderSummarySK from "../Skeletons/OrderSummarySK";
-import {
-  ArrowRight,
-  CircleNotch,
-  SealCheck,
-  SealWarning,
-} from "@phosphor-icons/react";
+import { ArrowRight, CircleNotch, SealCheck } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -16,25 +11,42 @@ import { enqueueSnackbar } from "notistack";
 import { Item, QuoteType } from "../common/types";
 
 function OrderSummary() {
-  const { itemsArray, coupon, setCoupon, resetCoupon, resetItemsArray } =
-    useFoodStore();
+  const {
+    itemsArray,
+    coupon: savedCoupon,
+    setCoupon: saveNewCoupon,
+    resetCoupon,
+    resetItemsArray,
+  } = useFoodStore();
   const [isSpin, setIsSpin] = useState(false);
-  const [couponCode, setCouponCode] = useState(coupon);
+  const [isSpinQuote, setIsSpinQuote] = useState(false);
+
+  const [couponInput, setCouponInput] = useState(savedCoupon);
+
   const navigate = useNavigate();
 
   const getQuote = async () => {
-    const result = await apiClient().post("/order/getquote", {
-      items: itemsArray,
-      couponCode,
-    });
+    const result = await apiClient()
+      .post("/order/getquote", {
+        items: itemsArray,
+        couponCode: couponInput,
+      })
+      .finally(() => {
+        setIsSpinQuote(false);
+      });
     const response = result.data as QuoteType;
 
-    if (response.isDiscountApplied && !response.discountError) {
-      setCoupon(couponCode);
+    if (response.isDiscountApplied && response.discountError === false) {
+      saveNewCoupon(couponInput);
     }
 
-    if (response.isDiscountApplied && response.discountError) {
+    if (response.isDiscountApplied && response.discountError === true) {
       resetCoupon();
+      setCouponInput("");
+      enqueueSnackbar({
+        message: response.discount?.error,
+        variant: "error",
+      });
     }
 
     return result.data;
@@ -51,7 +63,10 @@ function OrderSummary() {
 
     setIsSpin(true);
     await apiClient()
-      .post("/order/create", { items: filterItems(itemsArray), couponCode })
+      .post("/order/create", {
+        items: filterItems(itemsArray),
+        couponCode: savedCoupon ? couponInput : "",
+      })
       .then(() => {
         enqueueSnackbar("Order Created!", { variant: "success" });
         resetItemsArray();
@@ -133,32 +148,52 @@ function OrderSummary() {
             type="text"
             placeholder="CODE"
             className="bg-neutral-50 outline-none w-full no-underline"
-            value={couponCode}
+            value={couponInput}
             onChange={(e) => {
-              setCouponCode(e.target.value.toUpperCase()), resetCoupon();
+              setCouponInput(e.target.value.toUpperCase());
             }}
           />
-          {coupon && (
+          {savedCoupon && (
             <SealCheck
               size={32}
               weight="fill"
               className="mx-5 text-green-500"
             />
           )}
-          {quote?.isDiscountApplied && quote.discountError && (
-            <SealWarning
-              size={32}
-              weight="fill"
-              className="mx-5 text-red-500"
-            />
-          )}
         </div>
-        <button
-          className="text-xl font-semibold tracking-wider"
-          onClick={() => refetch()}
-        >
-          Apply
-        </button>
+        {!savedCoupon && !isSpinQuote && (
+          <button
+            className={twMerge(
+              "text-xl font-semibold tracking-wider",
+              !(couponInput.length > 0)
+                ? "cursor-not-allowed text-gray-400"
+                : ""
+            )}
+            onClick={() => {
+              refetch(), setIsSpinQuote(true);
+            }}
+            disabled={!(couponInput.length > 0)}
+          >
+            Apply
+          </button>
+        )}
+        {isSpinQuote && (
+          <CircleNotch size={32} className="inline ml-2 animate-spin" />
+        )}
+        {savedCoupon && (
+          <button
+            className="text-xl font-semibold tracking-wider"
+            onClick={async () => {
+              await resetCoupon(),
+                setCouponInput(""),
+                setTimeout(() => {
+                  refetch(), setIsSpinQuote(true);
+                }, 200);
+            }}
+          >
+            Clear
+          </button>
+        )}
       </div>
       <div className=" sm:flex justify-end">
         <button

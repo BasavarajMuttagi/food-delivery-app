@@ -32,7 +32,6 @@ function SignUpForm() {
   });
 
   const SubmitHandler = async (data: userSignUpType) => {
-    console.log(data);
     setIsSpin(true);
 
     await apiClient()

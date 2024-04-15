@@ -43,7 +43,6 @@ const creator = (set: any) => ({
 const useFoodStore = create(persist(creator, storageModule));
 export default useFoodStore;
 
-
 const filterAndIncrement = (data: Item[], newItem: Item) => {
   if (data.length == 0) {
     return [{ ...newItem }];
@@ -64,7 +63,6 @@ const filterAndIncrement = (data: Item[], newItem: Item) => {
 };
 
 const filterAndDecrement = (data: Item[], newItemId: string) => {
-  console.log(data, newItemId);
   if (data.length == 0) {
     return data;
   }
@@ -74,8 +72,6 @@ const filterAndDecrement = (data: Item[], newItemId: string) => {
   }
 
   const filteredData = data.filter((eachItem) => eachItem.itemId !== newItemId);
-
-  console.log(currentItem[0]);
   if (currentItem[0].quantity == 1 || currentItem[0].quantity == 0) {
     return filteredData;
   }
