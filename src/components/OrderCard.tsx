@@ -1,8 +1,34 @@
-import { Circle, Square } from "@phosphor-icons/react";
+import { Circle, CircleNotch, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
-import { Order } from "../common/types";
+import { Order, QuoteType } from "../common/types";
+import { useState } from "react";
+import apiClient from "../axios/apiClient";
+import { enqueueSnackbar } from "notistack";
+import useFoodStore from "../../store";
 
 function OrderCard({ order }: { order: Order }) {
+  const [isSpin, setIsSpin] = useState(false);
+  const { resetItemsArray, setItemsArray } = useFoodStore();
+  const reOrder = async () => {
+    try {
+      setIsSpin(true);
+      const response1 = await apiClient().get(`/order/reorder/${order.id}`);
+
+      const response2 = await apiClient().post(`/order/getquote`, {
+        items: response1.data.result,
+      });
+      const finalResult = response2.data as QuoteType;
+      resetItemsArray();
+      setItemsArray(finalResult.ItemsArray);
+    } catch (error) {
+      enqueueSnackbar({
+        message: "something went wrong, try again later",
+        variant: "error",
+      });
+    } finally {
+      setIsSpin(false);
+    }
+  };
   return (
     <div className=" p-2 space-y-2 rounded border w-full bg-white">
       <div className="flex justify-between items-start">
@@ -73,8 +99,18 @@ function OrderCard({ order }: { order: Order }) {
         <span className="text-sm font-semibold">
           ₹ {order.total.toFixed(2)}
         </span>
-        <button className="text-white bg-red-500 rounded p-2 text-sm font-semibold">
-          Reorder
+        <button
+          className={twMerge(
+            "text-white bg-red-500 rounded p-2 text-sm font-semibold",
+            isSpin ? "bg-red-300" : ""
+          )}
+          onClick={async () => await reOrder()}
+          disabled={isSpin}
+        >
+          Reorder{" "}
+          {isSpin && (
+            <CircleNotch size={20} className="inline ml-2 animate-spin" />
+          )}
         </button>
       </div>
     </div>

@@ -59,4 +59,5 @@ export type QuoteType = {
   isDiscountApplied: boolean;
   discount?: Discount;
   discountError?: boolean;
+  ItemsArray: Item[];
 };

@@ -38,6 +38,8 @@ const creator = (set: any) => ({
   },
 
   resetItemsArray: () => set(() => ({ itemsArray: [] })),
+  setItemsArray: (newItemsArray: Item[]) =>
+    set(() => ({ itemsArray: newItemsArray })),
 });
 
 const useFoodStore = create(persist(creator, storageModule));
