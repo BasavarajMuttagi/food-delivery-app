@@ -26,6 +26,7 @@ function OrderSummary() {
   const navigate = useNavigate();
 
   const getQuote = async () => {
+    setIsSpinQuote(true);
     const result = await apiClient()
       .post("/order/getquote", {
         items: itemsArray,
@@ -153,7 +154,7 @@ function OrderSummary() {
               setCouponInput(e.target.value.toUpperCase());
             }}
           />
-          {savedCoupon && (
+          {savedCoupon && !isSpinQuote && (
             <SealCheck
               size={32}
               weight="fill"
@@ -180,7 +181,7 @@ function OrderSummary() {
         {isSpinQuote && (
           <CircleNotch size={32} className="inline ml-2 animate-spin" />
         )}
-        {savedCoupon && (
+        {savedCoupon && !isSpinQuote && (
           <button
             className="text-xl font-semibold tracking-wider"
             onClick={async () => {

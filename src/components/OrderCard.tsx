@@ -8,17 +8,17 @@ import useFoodStore from "../../store";
 
 function OrderCard({ order }: { order: Order }) {
   const [isSpin, setIsSpin] = useState(false);
-  const { resetItemsArray, setItemsArray } = useFoodStore();
+  const { resetItemsArray, setItemsArray, resetCoupon } = useFoodStore();
   const reOrder = async () => {
     try {
       setIsSpin(true);
       const response1 = await apiClient().get(`/order/reorder/${order.id}`);
-
       const response2 = await apiClient().post(`/order/getquote`, {
         items: response1.data.result,
       });
       const finalResult = response2.data as QuoteType;
       resetItemsArray();
+      resetCoupon();
       setItemsArray(finalResult.ItemsArray);
     } catch (error) {
       enqueueSnackbar({
