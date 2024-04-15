@@ -39,7 +39,7 @@ function Menu() {
           </div>
           {menu?.data.result[eachCategory].map((eachItem: Item) => (
             <MenuItemCard
-              key={eachItem.name}
+              key={eachItem.itemId}
               name={eachItem.name}
               description={eachItem.description}
               price={eachItem.price}
