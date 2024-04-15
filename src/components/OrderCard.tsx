@@ -62,7 +62,7 @@ function OrderCard({ order }: { order: Order }) {
           <div className="text-xs font-medium flex justify-between items-center w-full px-2">
             <span>Discount</span>
             <span className=" text-green-400 text-sm tracking-wider">
-              -{order.discountValue}
+              - ₹{order.discountValue}
             </span>
           </div>
           <div className="border-b"></div>

@@ -121,7 +121,7 @@ function OrderSummary() {
           <div className="text-slate-600 font-medium">Discount</div>
           <div className="text-green-500 font-medium">
             {quote?.discount?.saved && (
-              <span>- ₹ {quote?.discount?.saved}</span>
+              <span>- ₹ {quote?.discount?.saved.toFixed(2)}</span>
             )}
             {!quote?.discount?.saved && (
               <span className="text-slate-500 font-medium">0</span>

@@ -38,7 +38,7 @@ function Deals() {
           key={deal.code}
           isActive={deal.isActive}
           label={deal.label}
-          code={deal.code}
+          couponCode={deal.code}
           description={deal.description}
         />
       ))}
