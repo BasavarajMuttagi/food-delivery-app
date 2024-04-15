@@ -40,6 +40,8 @@ export type Order = {
   subtotal: number;
   tax: number;
   tax_rate: number;
+  couponCode: string;
+  discountValue: number;
   createdAt: string;
   updatedAt: string;
   _count: {

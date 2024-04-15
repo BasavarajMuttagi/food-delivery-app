@@ -2,7 +2,6 @@ import { Circle, Square } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 import { Order } from "../common/types";
 
-
 function OrderCard({ order }: { order: Order }) {
   return (
     <div className=" p-2 space-y-2 rounded border w-full bg-white">
@@ -52,6 +51,24 @@ function OrderCard({ order }: { order: Order }) {
         ))}
       </div>
       <div className="border-b"></div>
+      {order.couponCode && (
+        <div className="space-y-4">
+          <div className="text-xs font-medium flex justify-between items-center w-full px-2">
+            <span>Coupon Code</span>
+            <span className="p-1  bg-violet-100 rounded border  text-violet-500 border-violet-500">
+              {order.couponCode}
+            </span>
+          </div>
+          <div className="text-xs font-medium flex justify-between items-center w-full px-2">
+            <span>Discount</span>
+            <span className=" text-green-400 text-sm tracking-wider">
+              -{order.discountValue}
+            </span>
+          </div>
+          <div className="border-b"></div>
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <span className="text-sm font-semibold">
           ₹ {order.total.toFixed(2)}
