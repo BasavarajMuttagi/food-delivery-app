@@ -32,7 +32,7 @@ function OrderDetail() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["OneOrderByID"],
+    queryKey: ["OneOrderByID",orderId],
     queryFn: async () => await getOneOrderByID(),
   });
 

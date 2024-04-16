@@ -22,6 +22,7 @@ function OrderCard({ order }: { order: Order }) {
       resetItemsArray();
       resetCoupon();
       setItemsArray(finalResult.ItemsArray);
+      navigate("/cart");
     } catch (error) {
       enqueueSnackbar({
         message: "something went wrong, try again later",
@@ -109,7 +110,10 @@ function OrderCard({ order }: { order: Order }) {
             "text-white bg-red-500 rounded p-2 text-sm font-semibold",
             isSpin ? "bg-red-300" : ""
           )}
-          onClick={async () => await reOrder()}
+          onClick={async (e) => {
+            e.stopPropagation();
+            await reOrder();
+          }}
           disabled={isSpin}
         >
           Reorder{" "}
