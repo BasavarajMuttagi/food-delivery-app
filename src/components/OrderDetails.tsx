@@ -31,7 +31,6 @@ function OrderDetail() {
     data: order,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ["OneOrderByID"],
     queryFn: async () => await getOneOrderByID(),
@@ -55,7 +54,7 @@ function OrderDetail() {
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span>Error: {"Order Not Found"}</span>;
   }
 
   return (
