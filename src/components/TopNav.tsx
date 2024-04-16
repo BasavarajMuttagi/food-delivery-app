@@ -106,7 +106,7 @@ function TopNav({ topNavRef }: { topNavRef: RefObject<HTMLDivElement> }) {
           </span>
         </li>
         <li className="flex items-center space-x-3 cursor-pointer text-slate-600">
-          <SignOut size={24} />
+          <SignOut size={24} weight="bold" />
           <span onClick={() => logout()}>Logout</span>
         </li>
       </ul>

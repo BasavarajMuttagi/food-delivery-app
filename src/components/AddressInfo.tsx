@@ -3,11 +3,19 @@ import apiClient from "../axios/apiClient";
 import { useQuery } from "@tanstack/react-query";
 import { AddressInfo as Info } from "../common/types";
 import AddressInfoSK from "../Skeletons/AddressInfoSK";
-
+import { InvoiceContext } from "../layouts/OrderDetailsLayout";
+import { useContext } from "react";
 
 function AddressInfo() {
+  const data = useContext(InvoiceContext);
+  const setValue = data[1];
   const getUser = async () => {
-    const result = await apiClient().get("/auth/getuser");
+    setValue(true);
+    const result = await apiClient()
+      .get("/auth/getuser")
+      .finally(() => {
+        setValue(false);
+      });
     return result.data.result;
   };
 

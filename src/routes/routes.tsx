@@ -11,6 +11,8 @@ import DealsLayout from "../layouts/DealsLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import CheckOutLayout from "../layouts/CheckOutLayout";
 import OrderConfirmation from "../components/OrderConfirmation";
+import OrderDetailsLayout from "../layouts/OrderDetailsLayout";
+import PageNotFound from "../components/PageNotFound";
 
 const routes = createBrowserRouter([
   {
@@ -61,7 +63,15 @@ const routes = createBrowserRouter([
         path: "/confirmation",
         element: <OrderConfirmation />,
       },
+      {
+        path: "/orderdetails/:orderId",
+        element: <OrderDetailsLayout />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 

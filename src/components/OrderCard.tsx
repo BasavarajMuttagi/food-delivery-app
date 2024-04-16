@@ -5,8 +5,10 @@ import { useState } from "react";
 import apiClient from "../axios/apiClient";
 import { enqueueSnackbar } from "notistack";
 import useFoodStore from "../../store";
+import { useNavigate } from "react-router-dom";
 
 function OrderCard({ order }: { order: Order }) {
+  const navigate = useNavigate();
   const [isSpin, setIsSpin] = useState(false);
   const { resetItemsArray, setItemsArray, resetCoupon } = useFoodStore();
   const reOrder = async () => {
@@ -30,7 +32,10 @@ function OrderCard({ order }: { order: Order }) {
     }
   };
   return (
-    <div className=" p-2 space-y-2 rounded border w-full bg-white">
+    <div
+      className=" p-2 space-y-2 rounded border w-full bg-white cursor-pointer"
+      onClick={() => navigate(`/orderdetails/${order.id}`)}
+    >
       <div className="flex justify-between items-start">
         <div className="space-y-2">
           <div className="text-xs font-bold text-slate-700">Delivery</div>
