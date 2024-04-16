@@ -61,3 +61,12 @@ export type QuoteType = {
   discountError?: boolean;
   ItemsArray: Item[];
 };
+
+export type AddressInfo = {
+  address: string;
+  country: string;
+  state: string;
+  fullname: string;
+  city: string;
+  phone: string;
+};

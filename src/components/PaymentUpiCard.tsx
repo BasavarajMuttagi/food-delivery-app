@@ -54,7 +54,7 @@ function PaymentUpiCard({ imageUrl, brandname, upiId }: paymentProps) {
         enqueueSnackbar("Order Created!", { variant: "success" });
         resetItemsArray();
         resetCoupon();
-        navigate("/orders");
+        navigate("/confirmation");
       })
       .catch((error: AxiosError) => {
         const data = error.response?.data as any;
@@ -72,7 +72,7 @@ function PaymentUpiCard({ imageUrl, brandname, upiId }: paymentProps) {
       onClick={() => createOrder()}
       disabled={isSpin}
       className={twMerge(
-        "border aspect-square w-30 bg-neutral-200/25 rounded flex flex-col items-center justify-center space-y-2 sm:w-40 lg:w-48",
+        "border aspect-square w-30 bg-neutral-200/25 rounded flex flex-col items-center justify-center space-y-2 hover:bg-white hover:duration-300 sm:w-40 lg:w-48",
         isSpin ? "brightness-50" : ""
       )}
     >
