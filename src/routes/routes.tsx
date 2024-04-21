@@ -1,22 +1,29 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import MenuLayout from "../layouts/MenuLayout";
-import PublicRoutes from "./PublicRoutes";
-import AboutLayout from "../layouts/AboutLayout";
-import CartLayout from "../layouts/CartLayout";
-import Home from "../components/Home";
-import LoginForm from "../components/LoginForm";
-import SignUpForm from "../components/SignUpForm";
-import OrdersLayout from "../layouts/OrdersLayout";
-import DealsLayout from "../layouts/DealsLayout";
-import PrivateRoutes from "./PrivateRoutes";
-import CheckOutLayout from "../layouts/CheckOutLayout";
-import OrderConfirmation from "../components/OrderConfirmation";
-import OrderDetailsLayout from "../layouts/OrderDetailsLayout";
-import PageNotFound from "../components/PageNotFound";
+const MenuLayout = lazy(() => import("../layouts/MenuLayout"));
+const PublicRoutes = lazy(() => import("./PublicRoutes"));
+const AboutLayout = lazy(() => import("../layouts/AboutLayout"));
+const CartLayout = lazy(() => import("../layouts/CartLayout"));
+const Home = lazy(() => import("../components/Home"));
+const LoginForm = lazy(() => import("../components/LoginForm"));
+const SignUpForm = lazy(() => import("../components/SignUpForm"));
+const OrdersLayout = lazy(() => import("../layouts/OrdersLayout"));
+const DealsLayout = lazy(() => import("../layouts/DealsLayout"));
+const PrivateRoutes = lazy(() => import("./PrivateRoutes"));
+const CheckOutLayout = lazy(() => import("../layouts/CheckOutLayout"));
+const OrderConfirmation = lazy(() => import("../components/OrderConfirmation"));
+const OrderDetailsLayout = lazy(() => import("../layouts/OrderDetailsLayout"));
+const PageNotFound = lazy(() => import("../components/PageNotFound"));
+const CommonLayout = lazy(() => import("../layouts/CommonLayout"));
 
+import SuspenseLoader from "../layouts/SuspenseLoader";
 const routes = createBrowserRouter([
   {
-    element: <PublicRoutes />,
+    element: (
+      <Suspense fallback={<SuspenseLoader />}>
+        <PublicRoutes />
+      </Suspense>
+    ),
     children: [
       {
         path: "/signup",
@@ -29,12 +36,27 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    element: <PrivateRoutes />,
+    element: (
+      <Suspense fallback={<SuspenseLoader />}>
+        <PrivateRoutes />
+      </Suspense>
+    ),
     children: [
       {
         path: "/",
         element: <Home />,
       },
+    ],
+  },
+  {
+    element: (
+      <Suspense fallback={<SuspenseLoader />}>
+        <CommonLayout>
+          <PrivateRoutes />
+        </CommonLayout>
+      </Suspense>
+    ),
+    children: [
       {
         path: "/menu",
         element: <MenuLayout />,
