@@ -7,10 +7,11 @@ import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
 import apiClient from "../axios/apiClient";
 import { AxiosResponse, AxiosError } from "axios";
 import { userSignUpType, userSignUpSchema } from "../zod/schemas";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 function SignUpForm() {
   const [isSpin, setIsSpin] = useState(false);
-
+  const [captchaToken, setCaptchaToken] = useState("");
   const {
     register,
     handleSubmit,
@@ -35,7 +36,7 @@ function SignUpForm() {
     setIsSpin(true);
 
     await apiClient()
-      .post(`/auth/signup`, data)
+      .post(`/auth/signup`, { ...data, token: captchaToken })
       .then((res: AxiosResponse) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
         reset();
@@ -202,6 +203,12 @@ function SignUpForm() {
               )}
               {!isSpin && <ArrowRight size={32} className="inline ml-2" />}
             </button>
+          </div>
+          <div className="p-2 flex justify-center">
+            <Turnstile
+              siteKey="0x4AAAAAAAX-PpkRSHXB_Lgb"
+              onSuccess={(token: string) => setCaptchaToken(token)}
+            />
           </div>
           <div className="px-2">
             <div className="text-center text-md font-semibold">

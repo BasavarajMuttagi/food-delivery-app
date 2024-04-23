@@ -3,43 +3,48 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { AxiosResponse, AxiosError } from "axios";
 import { enqueueSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
-import useFoodStore from "../../store";
+import { useNavigate, useParams } from "react-router-dom";
 import apiClient from "../axios/apiClient";
-import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
-import { userLoginSchema, userLoginType } from "../zod/schemas";
-
+import { CircleNotch } from "@phosphor-icons/react";
+import {
+  userSetNewPasswordSchema,
+  userSetNewPasswordType,
+} from "../zod/schemas";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { jwtDecode } from "jwt-decode";
+import { tokenType } from "../routes/PrivateRoutes";
 
-function LoginForm() {
+function SetNewPassword() {
+  let { token } = useParams();
+
   const [captchaToken, setCaptchaToken] = useState("");
-  const { setToken, setUser } = useFoodStore();
   const navigate = useNavigate();
   const [isSpin, setIsSpin] = useState(false);
+
+  const decodedToken = jwtDecode(token!) as Omit<tokenType, "email" | "name">;
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<userLoginType>({
-    resolver: zodResolver(userLoginSchema),
+  } = useForm<userSetNewPasswordType>({
+    resolver: zodResolver(userSetNewPasswordSchema),
     defaultValues: {
-      email: "",
+      userId: decodedToken.userId,
       password: "",
+      confirmpassword: "",
     },
   });
 
-  const SubmitHandler = async (data: userLoginType) => {
+  const SubmitHandler = async (data: userSetNewPasswordType) => {
     setIsSpin(true);
     await apiClient()
-      .post(`/auth/login`, { ...data, token: captchaToken })
+      .post(`/auth/setnewpassword`, { ...data, token: captchaToken })
       .then((res: AxiosResponse) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
-        setToken(res.data.token);
-        setUser(res.data.user);
-        navigate("/");
         reset();
+        navigate("/");
         location.reload();
       })
       .catch((error: AxiosError) => {
@@ -76,18 +81,6 @@ function LoginForm() {
             <div className="space-y-8">
               <div>
                 <input
-                  {...register("email")}
-                  placeholder="Email"
-                  className="p-2  outline outline-1 outline-slate-400 drop-shadow rounded-sm w-[310px] font-semibold"
-                />
-                {errors.email && (
-                  <div className="text-red-400 ml-1   text-xs w-full">
-                    {errors.email.message}
-                  </div>
-                )}
-              </div>
-              <div>
-                <input
                   {...register("password")}
                   placeholder="Password"
                   className="p-2  outline outline-1 outline-slate-400 drop-shadow rounded-sm w-[310px] font-semibold"
@@ -98,11 +91,23 @@ function LoginForm() {
                   </div>
                 )}
               </div>
+              <div>
+                <input
+                  {...register("confirmpassword")}
+                  placeholder="confirm password"
+                  className="p-2  outline outline-1 outline-slate-400 drop-shadow rounded-sm w-[310px] font-semibold"
+                />
+                {errors.confirmpassword && (
+                  <div className="text-red-400 ml-1   text-xs w-full">
+                    {errors.confirmpassword.message}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
           <div className="p-2 flex justify-center">
             <button className="p-2 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-black text-xl font-bold text-white">
-              Login{" "}
+              Set New Password{" "}
               {isSpin && (
                 <CircleNotch size={32} className="inline ml-2 animate-spin" />
               )}
@@ -114,24 +119,10 @@ function LoginForm() {
               onSuccess={(token: string) => setCaptchaToken(token)}
             />
           </div>
-          <div className="px-2">
-            <p className="font-semibold text-sm text-blue-600 hover:text-purple-800 cursor-pointer" onClick={()=>navigate("/reset")}>
-              forgot password?
-            </p>
-            <div className="text-center text-md font-semibold">or</div>
-          </div>
-          <div className="p-2 flex justify-center">
-            <button
-              className="p-1 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-yellow-300 text-black text-xl font-bold"
-              onClick={() => navigate("/signup")}
-            >
-              Sign Up <ArrowRight size={32} className="inline ml-2" />
-            </button>
-          </div>
         </form>
       </div>
     </div>
   );
 }
 
-export default LoginForm;
+export default SetNewPassword;

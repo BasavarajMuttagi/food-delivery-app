@@ -16,7 +16,9 @@ const OrderDetailsLayout = lazy(() => import("../layouts/OrderDetailsLayout"));
 const PageNotFound = lazy(() => import("../components/PageNotFound"));
 const CommonLayout = lazy(() => import("../layouts/CommonLayout"));
 
-import SuspenseLoader from "../layouts/SuspenseLoader";
+const SuspenseLoader = lazy(() => import("../layouts/SuspenseLoader"));
+const ResetPassword = lazy(() => import("../components/ResetPassword"));
+const SetNewPassword = lazy(() => import("../components/SetNewPassword"));
 const routes = createBrowserRouter([
   {
     element: (
@@ -32,6 +34,14 @@ const routes = createBrowserRouter([
       {
         path: "/login",
         element: <LoginForm />,
+      },
+      {
+        path: "/reset",
+        element: <ResetPassword />,
+      },
+      {
+        path: "/setnewpassword/:token",
+        element: <SetNewPassword />,
       },
     ],
   },
