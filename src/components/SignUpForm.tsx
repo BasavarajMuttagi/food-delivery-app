@@ -8,6 +8,7 @@ import apiClient from "../axios/apiClient";
 import { AxiosResponse, AxiosError } from "axios";
 import { userSignUpType, userSignUpSchema } from "../zod/schemas";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { twMerge } from "tailwind-merge";
 
 function SignUpForm() {
   const [isSpin, setIsSpin] = useState(false);
@@ -16,7 +17,8 @@ function SignUpForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
+    setError,
   } = useForm<userSignUpType>({
     resolver: zodResolver(userSignUpSchema),
     defaultValues: {
@@ -42,6 +44,7 @@ function SignUpForm() {
         reset();
       })
       .catch((error: AxiosError) => {
+        setError("root", { type: "validate" });
         const data = error.response?.data as any;
         enqueueSnackbar(data?.message, { variant: "error" });
       })
@@ -194,7 +197,11 @@ function SignUpForm() {
 
           <div className="p-2 flex justify-center">
             <button
-              className="p-1 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-yellow-300 text-xl font-bold text-black"
+              className={twMerge(
+                "p-1 rounded-sm  outline outline-1 outline-slate-400 w-[310px]   text-xl font-bold text-black",
+                isValid ? "bg-yellow-300" : "bg-yellow-300/40"
+              )}
+              disabled={isValid && captchaToken ? false : true}
               type="submit"
             >
               Sign Up{" "}
@@ -204,12 +211,14 @@ function SignUpForm() {
               {!isSpin && <ArrowRight size={32} className="inline ml-2" />}
             </button>
           </div>
-          <div className="p-2 flex justify-center">
-            <Turnstile
-              siteKey="0x4AAAAAAAX-PpkRSHXB_Lgb"
-              onSuccess={(token: string) => setCaptchaToken(token)}
-            />
-          </div>
+          {isValid && (
+            <div className="p-2 flex justify-center">
+              <Turnstile
+                siteKey="0x4AAAAAAAX-PpkRSHXB_Lgb"
+                onSuccess={(token: string) => setCaptchaToken(token)}
+              />
+            </div>
+          )}
           <div className="px-2">
             <div className="text-center text-md font-semibold">
               Already Have An Account ?{" "}

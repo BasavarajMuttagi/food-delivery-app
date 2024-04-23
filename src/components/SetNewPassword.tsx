@@ -45,7 +45,6 @@ function SetNewPassword() {
         enqueueSnackbar(res.data.message, { variant: "success" });
         reset();
         navigate("/");
-        location.reload();
       })
       .catch((error: AxiosError) => {
         const data = error.response?.data as any;

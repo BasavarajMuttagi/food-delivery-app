@@ -10,9 +10,11 @@ import { ArrowRight, CircleNotch } from "@phosphor-icons/react";
 import { userLoginSchema, userLoginType } from "../zod/schemas";
 
 import { Turnstile } from "@marsidev/react-turnstile";
+import { twMerge } from "tailwind-merge";
 
 function LoginForm() {
   const [captchaToken, setCaptchaToken] = useState("");
+
   const { setToken, setUser } = useFoodStore();
   const navigate = useNavigate();
   const [isSpin, setIsSpin] = useState(false);
@@ -21,7 +23,8 @@ function LoginForm() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
+    setError,
   } = useForm<userLoginType>({
     resolver: zodResolver(userLoginSchema),
     defaultValues: {
@@ -43,6 +46,7 @@ function LoginForm() {
         location.reload();
       })
       .catch((error: AxiosError) => {
+        setError("root", { type: "validate" });
         const data = error.response?.data as any;
         enqueueSnackbar(data?.message || "Something Went Wrong!", {
           variant: "error",
@@ -101,21 +105,32 @@ function LoginForm() {
             </div>
           </div>
           <div className="p-2 flex justify-center">
-            <button className="p-2 rounded-sm  outline outline-1 outline-slate-400 w-[310px]  bg-black text-xl font-bold text-white">
+            <button
+              className={twMerge(
+                "p-2 rounded-sm  outline outline-1 outline-slate-400 w-[310px]   text-xl font-bold text-white",
+                isValid ? "bg-black" : "bg-black/40"
+              )}
+              disabled={isValid && captchaToken? false : true}
+            >
               Login{" "}
               {isSpin && (
                 <CircleNotch size={32} className="inline ml-2 animate-spin" />
               )}
             </button>
           </div>
-          <div className="p-2 flex justify-center">
-            <Turnstile
-              siteKey="0x4AAAAAAAX-PpkRSHXB_Lgb"
-              onSuccess={(token: string) => setCaptchaToken(token)}
-            />
-          </div>
+          {isValid && (
+            <div className="p-2 flex justify-center">
+              <Turnstile
+                siteKey="0x4AAAAAAAX-PpkRSHXB_Lgb"
+                onSuccess={(token: string) => setCaptchaToken(token)}
+              />
+            </div>
+          )}
           <div className="px-2">
-            <p className="font-semibold text-sm text-blue-600 hover:text-purple-800 cursor-pointer" onClick={()=>navigate("/reset")}>
+            <p
+              className="font-semibold text-sm text-blue-600 hover:text-purple-800 cursor-pointer"
+              onClick={() => navigate("/reset")}
+            >
               forgot password?
             </p>
             <div className="text-center text-md font-semibold">or</div>
